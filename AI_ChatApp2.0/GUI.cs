@@ -31,7 +31,7 @@ namespace AI_ChatApp2._0
 
         private void SendChat()
         {
-            if (textBoxSendChat.Text != "")
+            if (textBoxSendChat.Text != "" && textBoxSendChat.Text != "$DISCONNECT")
             {
                 this.client.SendData(textBoxSendChat.Text);
                 textBoxSendChat.Text = "";
@@ -65,6 +65,11 @@ namespace AI_ChatApp2._0
             {
                 SendChat();
             }
+        }
+
+        private void GUI_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.client.DataHandler.Disconnect();
         }
     }
 }

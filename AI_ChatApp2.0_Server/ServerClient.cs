@@ -81,8 +81,10 @@ namespace AI_ChatApp2._0_Server
 
         private void Disconnect()
         {
-
+            Console.WriteLine("DISCONNECT");
             //TODO disconnect stream and clients
+            this.Stream.Close();
+            this.TCPClient.Close();
             this.Server.Disconnect(this);
         }
 
@@ -114,7 +116,12 @@ namespace AI_ChatApp2._0_Server
                 case Sentence.Type.CHAT_MESSAGE:
                     {
                         Console.WriteLine("Chat message received");
-                        this.Server.Broadcast(data);
+                        this.Server.Broadcast(data, Sentence.Type.SERVER_MESSAGE);
+                        break;
+                    }
+                case Sentence.Type.DISCONNECT:
+                    {
+                        Disconnect();
                         break;
                     }
                 default:

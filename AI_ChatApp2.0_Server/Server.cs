@@ -55,7 +55,7 @@ namespace AI_ChatApp2._0_Server
             this.Clients.Add(new ServerClient(this, client));
         }
 
-        public void Broadcast(Sentence message)
+        public void Broadcast(Sentence message, Sentence.Type type)
         {
             foreach (var Client in this.Clients)
             {
@@ -63,7 +63,7 @@ namespace AI_ChatApp2._0_Server
                 {
                     Sender = message.Sender,
                     Data = message.Data,
-                    MessageType = Sentence.Type.SERVER_MESSAGE
+                    MessageType = type
                 }); ;
             }
         }
@@ -72,6 +72,12 @@ namespace AI_ChatApp2._0_Server
         {
             //TODO verbeteren
             this.Clients.Remove(client);
+            Broadcast(new Sentence()
+            {
+                Sender = "Server",
+                Data = "Disconnect",
+                MessageType = Sentence.Type.SERVER_MESSAGE
+            }, Sentence.Type.SERVER_MESSAGE);
             Console.WriteLine("A client disconnected from the server");
             Console.WriteLine("IK ben hierin");
         }

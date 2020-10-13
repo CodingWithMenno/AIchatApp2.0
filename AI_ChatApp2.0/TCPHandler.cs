@@ -51,6 +51,9 @@ namespace AI_ChatApp2._0
             else if (message.StartsWith("Hey Bot, "))
             {
                 tuple = EncryptData(this.Name, message, Sentence.Type.BOT_ANSWER);
+            }else if (message == "$DISCONNECT")
+            {
+                tuple = EncryptData(this.Name, message, Sentence.Type.DISCONNECT);
             }
             else
             {
@@ -108,7 +111,7 @@ namespace AI_ChatApp2._0
 
         public void Disconnect()
         {
-
+            SendData("$DISCONNECT");
         }
 
         private Tuple<int, byte[]> EncryptData(string sender_, string message_, Sentence.Type type_)

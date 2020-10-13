@@ -16,7 +16,8 @@ namespace SharedClasses
             BOT_QUESTION,
             BOT_ANSWER,
             SERVER_MESSAGE,
-            BOT_REQUEST
+            BOT_REQUEST,
+            DISCONNECT
         }
 
         //public Sentence(string sender, string sentence, Type messageType)
