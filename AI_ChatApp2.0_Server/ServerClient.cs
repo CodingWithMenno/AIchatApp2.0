@@ -14,6 +14,7 @@ namespace AI_ChatApp2._0_Server
         private TcpClient TCPClient;
         private NetworkStream Stream;
         private byte[] Buffer = new byte[4];
+        public string Name;
 
         public ServerClient(Server server, TcpClient tcpClient)
         {
@@ -117,6 +118,11 @@ namespace AI_ChatApp2._0_Server
                 case Sentence.Type.DISCONNECT:
                     {
                         Disconnect();
+                        break;
+                    }
+                case Sentence.Type.USERSMESSAGE:
+                    {
+                        this.Name = data.getData();
                         break;
                     }
                 default:

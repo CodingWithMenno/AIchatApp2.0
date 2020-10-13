@@ -38,6 +38,8 @@ namespace AI_ChatApp2._0
 
             this.Stream = this.Client.GetStream();
 
+            SendData(this.Name);
+
             this.Stream.BeginRead(this.Buffer, 0, this.Buffer.Length, new AsyncCallback(OnIntRead), null);
         }
         public void SendData(string message)
@@ -51,9 +53,14 @@ namespace AI_ChatApp2._0
             else if (message.StartsWith("Hey Bot, "))
             {
                 tuple = EncryptData(this.Name, message, Sentence.Type.BOT_ANSWER);
-            }else if (message == "$DISCONNECT")
+            }
+            else if (message == "$DISCONNECT")
             {
                 tuple = EncryptData(this.Name, message, Sentence.Type.DISCONNECT);
+            }
+            else if (message == Name)
+            {
+                tuple = EncryptData(this.Name, message, Sentence.Type.USERSMESSAGE);
             }
             else
             {
@@ -146,6 +153,12 @@ namespace AI_ChatApp2._0
                 case Sentence.Type.SERVER_MESSAGE:
                     {
                         OnChatReceived?.Invoke($"{data.getSender()}: {data.getData()}\r\n");
+                        break;
+                    }
+                case Sentence.Type.USERSMESSAGE:
+                    {
+                        Console.WriteLine("All clients: ");     //DEZE NAMEN OP HET TEXTBOX LATEN ZIEN (HET ZIJN ALLE ONLINE USERS)
+                        Console.WriteLine(data.Data);
                         break;
                     }
                 default:

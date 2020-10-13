@@ -34,9 +34,10 @@
             // 
             // buttonToGUI
             // 
-            this.buttonToGUI.Location = new System.Drawing.Point(377, 196);
+            this.buttonToGUI.Location = new System.Drawing.Point(370, 146);
+            this.buttonToGUI.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonToGUI.Name = "buttonToGUI";
-            this.buttonToGUI.Size = new System.Drawing.Size(94, 29);
+            this.buttonToGUI.Size = new System.Drawing.Size(73, 24);
             this.buttonToGUI.TabIndex = 0;
             this.buttonToGUI.Text = "Login";
             this.buttonToGUI.UseVisualStyleBackColor = true;
@@ -44,19 +45,21 @@
             // 
             // textBoxUserName
             // 
-            this.textBoxUserName.Location = new System.Drawing.Point(246, 198);
+            this.textBoxUserName.Location = new System.Drawing.Point(244, 148);
+            this.textBoxUserName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxUserName.Name = "textBoxUserName";
-            this.textBoxUserName.Size = new System.Drawing.Size(125, 27);
+            this.textBoxUserName.Size = new System.Drawing.Size(110, 23);
             this.textBoxUserName.TabIndex = 1;
             this.textBoxUserName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxUserName_KeyDown);
             // 
             // Login
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(700, 338);
             this.Controls.Add(this.textBoxUserName);
             this.Controls.Add(this.buttonToGUI);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Login";
             this.Text = "Form1";
             this.ResumeLayout(false);

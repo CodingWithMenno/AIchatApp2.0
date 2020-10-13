@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 
 namespace AI_ChatApp2._0_Server
 {
@@ -55,6 +56,21 @@ namespace AI_ChatApp2._0_Server
 
             this.Listener.BeginAcceptTcpClient(new AsyncCallback(onClientAccepted), null);
             this.Clients.Add(new ServerClient(this, client));
+
+            Thread.Sleep(200); //Wachten totdat de server de naam heeft ontvangen van de client
+
+            string usersString = "";
+            this.Clients.ForEach(e => usersString += e.Name + "\n");
+
+            foreach (var Client in this.Clients)
+            {
+                Client.SendMessage(new Sentence()
+                {
+                    Sender = "Server",
+                    Data = usersString,
+                    MessageType = Sentence.Type.USERSMESSAGE
+                }); ;
+            }
         }
 
         public void Broadcast(Sentence message, Sentence.Type type)
