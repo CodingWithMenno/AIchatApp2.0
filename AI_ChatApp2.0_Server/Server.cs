@@ -1,4 +1,4 @@
-﻿using SharedClasses;
+﻿using SharedClass;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -51,6 +51,8 @@ namespace AI_ChatApp2._0_Server
             TcpClient client = this.Listener.EndAcceptTcpClient(ar);
             Console.WriteLine($"A new client connected to the server: {client.Client.RemoteEndPoint}");
 
+            sendServerMessage("A client connected");
+
             this.Listener.BeginAcceptTcpClient(new AsyncCallback(onClientAccepted), null);
             this.Clients.Add(new ServerClient(this, client));
         }
@@ -68,18 +70,25 @@ namespace AI_ChatApp2._0_Server
             }
         }
 
+        public void sendServerMessage(string message)
+        {
+            foreach (var Client in this.Clients)
+            {
+                Client.SendMessage(new Sentence()
+                {
+                    Sender = "Server",
+                    Data = message,
+                    MessageType = Sentence.Type.SERVER_MESSAGE
+                }); ;
+            }
+        }
+
         public void Disconnect(ServerClient client)
         {
             //TODO verbeteren
             this.Clients.Remove(client);
-            Broadcast(new Sentence()
-            {
-                Sender = "Server",
-                Data = "Disconnect",
-                MessageType = Sentence.Type.SERVER_MESSAGE
-            }, Sentence.Type.SERVER_MESSAGE);
+            sendServerMessage("A client disconnected");
             Console.WriteLine("A client disconnected from the server");
-            Console.WriteLine("IK ben hierin");
         }
 
         public void MessageToAI(Sentence message)

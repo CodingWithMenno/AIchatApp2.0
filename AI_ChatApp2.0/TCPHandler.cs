@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using SharedClasses;
+using SharedClass;
 using System;
 using System.Collections.Generic;
 using System.IO;

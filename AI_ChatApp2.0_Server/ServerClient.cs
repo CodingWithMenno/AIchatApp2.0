@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using SharedClasses;
+using SharedClass;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -34,11 +34,9 @@ namespace AI_ChatApp2._0_Server
                 this.Buffer = new byte[receivedLength];
                 this.Stream.BeginRead(this.Buffer, 0, this.Buffer.Length, new AsyncCallback(OnMessageRead), null);
             }
-            catch (IOException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-
-                Disconnect();
                 return;
             }
         }
@@ -56,11 +54,9 @@ namespace AI_ChatApp2._0_Server
 
                 handleData(DecryptData(receivedText));
             }
-            catch (IOException ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-
-                Disconnect();
                 return;
             }
         }
@@ -83,7 +79,6 @@ namespace AI_ChatApp2._0_Server
         {
             Console.WriteLine("DISCONNECT");
             //TODO disconnect stream and clients
-            this.Stream.Close();
             this.TCPClient.Close();
             this.Server.Disconnect(this);
         }
