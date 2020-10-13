@@ -1,0 +1,125 @@
+﻿using Newtonsoft.Json;
+using SharedClasses;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net.Sockets;
+using System.Text;
+
+namespace AI_ChatApp2._0_Server
+{
+    class ServerClient
+    {
+        private Server Server;
+        private TcpClient TCPClient;
+        private NetworkStream Stream;
+        private byte[] Buffer = new byte[4];
+
+        public ServerClient(Server server, TcpClient tcpClient)
+        {
+            this.Server = server;
+            this.TCPClient = tcpClient;
+
+            this.Stream = this.TCPClient.GetStream();
+            this.Stream.BeginRead(this.Buffer, 0, this.Buffer.Length, new AsyncCallback(OnIntRead), null);
+        }
+
+        public void OnIntRead(IAsyncResult ar) //Nog implementeren met ons protocol
+        {
+            try
+            {
+                int receivedBytes = this.Stream.EndRead(ar);
+                int receivedLength = BitConverter.ToInt32(this.Buffer, 0);
+
+                this.Buffer = new byte[receivedLength];
+                this.Stream.BeginRead(this.Buffer, 0, this.Buffer.Length, new AsyncCallback(OnMessageRead), null);
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                Disconnect();
+                return;
+            }
+        }
+
+        public void OnMessageRead(IAsyncResult ar) //Nog implementeren met ons protocol
+        {
+            try
+            {
+                int receivedBytes = this.Stream.EndRead(ar);
+                string receivedText = Encoding.ASCII.GetString(this.Buffer, 0, receivedBytes);
+
+
+                this.Buffer = new byte[4];
+                this.Stream.BeginRead(this.Buffer, 0, this.Buffer.Length, new AsyncCallback(OnIntRead), null);
+
+                handleData(DecryptData(receivedText));
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine(ex.Message);
+
+                Disconnect();
+                return;
+            }
+        }
+
+        public void SendMessage(Sentence message)
+        {
+            Console.WriteLine(message.toString());
+            //Converts message to Json
+            Tuple<int, byte[]> tuple = EncryptData(message);
+
+            //Sends length of message to client
+            Stream.Write(BitConverter.GetBytes(tuple.Item1), 0, BitConverter.GetBytes(tuple.Item1).Length);
+
+            //Sends message to client
+            Stream.Write(tuple.Item2, 0, tuple.Item2.Length);
+            Console.WriteLine("SENDING DONE");
+        }
+
+        private void Disconnect()
+        {
+
+            //TODO disconnect stream and clients
+            this.Server.Disconnect(this);
+        }
+
+        private Tuple<int, byte[]> EncryptData(Sentence message)
+        {
+            byte[] data = Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(message));
+            return Tuple.Create(data.Length, data);
+        }
+
+        private Sentence DecryptData(string message)
+        {
+            return JsonConvert.DeserializeObject<Sentence>(message);
+        }
+
+        private void handleData(Sentence data)
+        {
+            Console.WriteLine(data.toString());
+
+            switch (data.getMessageType())
+            {
+                case Sentence.Type.BOT_ANSWER:
+                    {
+                        break;
+                    }
+                case Sentence.Type.BOT_QUESTION:
+                    {
+                        break;
+                    }
+                case Sentence.Type.CHAT_MESSAGE:
+                    {
+                        Console.WriteLine("Chat message received");
+                        this.Server.Broadcast(data);
+                        break;
+                    }
+                default:
+                    break;
+            }
+        }
+    }
+}
