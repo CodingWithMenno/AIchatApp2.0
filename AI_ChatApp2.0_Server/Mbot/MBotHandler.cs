@@ -3,6 +3,7 @@ using SharedClass;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace AI_ChatApp2._0_Server.Mbot
 {
@@ -24,8 +25,9 @@ namespace AI_ChatApp2._0_Server.Mbot
             this.commands.Add(new WeatherCommand("weather"));
         }
 
-        public void HandleMessage(Sentence sentence)
+        private void HandleMessageAsync(Sentence sentence)
         {
+            Console.WriteLine("TEST");
             string message = sentence.getData();
 
             foreach (MCommand command in this.commands)
@@ -35,6 +37,16 @@ namespace AI_ChatApp2._0_Server.Mbot
                     command.DoCommand(sentence);
                 }
             }
+        }
+
+        public void HandleMessage(Sentence sentence)
+        {
+            Thread messageThread = new Thread(() =>
+            {
+                HandleMessageAsync(sentence);
+            });
+
+            messageThread.Start();
         }
     }
 }

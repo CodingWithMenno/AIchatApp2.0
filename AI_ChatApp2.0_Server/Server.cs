@@ -23,9 +23,11 @@ namespace AI_ChatApp2._0_Server
             m.HandleMessage(new Sentence()
             {
                 Sender = "Server",
-                Data = "temp dordrecht",
+                Data = "weather dordrecht",
                 MessageType = Sentence.Type.USERSMESSAGE
             }); ;
+
+            Console.ReadLine();
         }
 
         public Server()
