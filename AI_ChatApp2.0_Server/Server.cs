@@ -1,4 +1,5 @@
-﻿using SharedClass;
+﻿using AI_ChatApp2._0_Server.Mbot;
+using SharedClass;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -16,7 +17,15 @@ namespace AI_ChatApp2._0_Server
 
         static void Main(string[] args)
         {
-            Server server = new Server();
+            //Server server = new Server();
+
+            MBotHandler m = new MBotHandler();
+            m.HandleMessage(new Sentence()
+            {
+                Sender = "Server",
+                Data = "temp dordrecht",
+                MessageType = Sentence.Type.USERSMESSAGE
+            }); ;
         }
 
         public Server()
