@@ -45,22 +45,6 @@ namespace AI_ChatApp2._0_Server.Mbot.Commands
                             }
                             break;
                         }
-                    case "saveChat":
-                        {
-                            if (words.Length > 2)
-                            {
-                                throw new Exception();
-                            }
-                            break;
-                        }
-                    case "loadChat":
-                        {
-                            if (words.Length > 3)
-                            {
-                                throw new Exception();
-                            }
-                            break;
-                        }
                     case "addBW":
                         {
                             if (words.Length > 3)
@@ -70,6 +54,8 @@ namespace AI_ChatApp2._0_Server.Mbot.Commands
                             if (!File.ReadAllText("BlackList.txt").Contains(words[2].ToLower()))
                             {
                                 File.AppendAllText("BlackList.txt", words[2].ToLower() + ", ");
+                                this.Server.BotHandler.blackList.Add(words[2].ToLower());
+
                                 this.Server.SendToUser(sentence.Sender, $"{words[2]} has been added to the blacklist.");
                             }
                             else
@@ -87,14 +73,13 @@ namespace AI_ChatApp2._0_Server.Mbot.Commands
                             }
                             try
                             {
-                                string[] blackList = File.ReadAllText("BlackList.txt").Split(", ");
-                                List<string> bl = blackList.ToList<string>();
+                                this.Server.BotHandler.blackList = new List<string>(File.ReadAllText("BlackList.txt").Split(", "));
 
-                                if (bl.Contains(words[2].ToLower()))
+                                if (this.Server.BotHandler.blackList.Contains(words[2].ToLower()))
                                 {
-                                    bl.Remove(words[2].ToLower());
+                                    this.Server.BotHandler.blackList.Remove(words[2].ToLower());
 
-                                    string allWords = String.Join(", ", bl.ToArray());
+                                    string allWords = String.Join(", ", this.Server.BotHandler.blackList.ToArray());
                                     File.WriteAllText("BlackList.txt", allWords);
 
                                     this.Server.SendToUser(sentence.Sender, $"{words[2]} has been removed from the blacklist.");
@@ -130,6 +115,7 @@ namespace AI_ChatApp2._0_Server.Mbot.Commands
                             break;
                         }
                     default:
+                        this.Server.SendToUser(sentence.Sender, $"The command \"{sentence.getData()}\" is not valid, type !help for a list of all my commands.");
                         break;
                 }
             }

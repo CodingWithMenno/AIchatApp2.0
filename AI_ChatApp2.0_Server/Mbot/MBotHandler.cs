@@ -2,6 +2,8 @@
 using SharedClass;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 
@@ -11,10 +13,13 @@ namespace AI_ChatApp2._0_Server.Mbot
     {
         private Server Server;
         private List<MCommand> commands;
+        public List<string> blackList;
 
         public MBotHandler(Server server)
         {
             this.Server = server;
+            this.blackList = new List<string>(File.ReadAllText("BlackList.txt").Split(", "));
+
             setCommands();
         }
 
@@ -50,6 +55,20 @@ namespace AI_ChatApp2._0_Server.Mbot
             });
 
             messageThread.Start();
+        }
+
+        public bool CheckInputBL(Sentence sentence)
+        {
+            List<string> words = sentence.getData().Split(" ").ToList<string>();
+
+            foreach (string word in words)
+            {
+                if (this.blackList.Contains(word))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

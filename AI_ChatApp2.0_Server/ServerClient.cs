@@ -116,7 +116,19 @@ namespace AI_ChatApp2._0_Server
                 case Sentence.Type.CHAT_MESSAGE:
                     {
                         Console.WriteLine("Chat message received");
-                        this.Server.Broadcast(data, Sentence.Type.SERVER_MESSAGE);
+                        if (this.Server.BotHandler.CheckInputBL(data))
+                        {
+                            this.Server.Broadcast(data, Sentence.Type.SERVER_MESSAGE);
+                        }
+                        else
+                        {
+                            SendMessage(new Sentence()
+                            {
+                                Sender = "Server",
+                                Data = "$DISCONNECT",
+                                MessageType = Sentence.Type.DISCONNECT_REQUEST
+                            });
+                        }
                         break;
                     }
                 case Sentence.Type.DISCONNECT:

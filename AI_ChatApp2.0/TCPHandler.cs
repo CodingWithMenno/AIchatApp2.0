@@ -139,29 +139,35 @@ namespace AI_ChatApp2._0
 
         private void handleData(Sentence data)
         {
-            Console.WriteLine(data.toString());
-
-            switch (data.getMessageType())
+            try
             {
-                case Sentence.Type.SERVER_MESSAGE:
-                    {
-                        OnChatReceived?.Invoke($"{data.getSender()}: {data.getData()}\r\n");
+                switch (data.getMessageType())
+                {
+                    case Sentence.Type.SERVER_MESSAGE:
+                        {
+                            OnChatReceived?.Invoke($"{data.getSender()}: {data.getData()}\r\n");
+                            break;
+                        }
+                    case Sentence.Type.USERSMESSAGE:
+                        {
+                            OnClientListReceived?.Invoke(data.Data);
+                            Console.WriteLine("All clients: ");     
+                            Console.WriteLine(data.Data);
+                            break;
+                        }
+                    case Sentence.Type.DISCONNECT_REQUEST:
+                        {
+                            SendData("$DISCONNECT");
+                            Environment.Exit(0);
+                            break;
+                        }
+                    default:
                         break;
-                    }
-                case Sentence.Type.USERSMESSAGE:
-                    {
-                        OnClientListReceived?.Invoke(data.Data);
-                        Console.WriteLine("All clients: ");     //DEZE NAMEN OP HET TEXTBOX LATEN ZIEN (HET ZIJN ALLE ONLINE USERS)
-                        Console.WriteLine(data.Data);
-                        break;
-                    }
-                case Sentence.Type.DISCONNECT_REQUEST:
-                    {
-                        SendData("$DISCONNECT");
-                        break;
-                    }
-                default:
-                    break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
     }

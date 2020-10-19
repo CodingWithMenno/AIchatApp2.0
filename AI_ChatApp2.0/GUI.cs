@@ -42,10 +42,6 @@ namespace AI_ChatApp2._0
         {
             this.client = new Client(UserName, "localhost");
             client.Connect();
-            //if (client.Connect())
-            //{
-            //    Code for startup of program
-            //}
             this.client.DataHandler.OnChatReceived += Client_OnChatReceived;
             this.client.DataHandler.OnClientListReceived += DataHandler_OnClientListReceived;
         }

@@ -54,6 +54,7 @@ namespace AI_ChatApp2._0_Server.Mbot.Commands
                             break;
                         }
                     default:
+                        this.Server.SendToUser(sentence.Sender, $"The command \"{sentence.getData()}\" is not valid, type !help for a list of all my commands.");
                         break;
                 }
             }
