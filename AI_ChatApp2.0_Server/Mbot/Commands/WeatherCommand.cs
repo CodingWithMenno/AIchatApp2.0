@@ -21,22 +21,7 @@ namespace AI_ChatApp2._0_Server.Mbot.Commands
         {
             string city = sentence.getData().Substring(this.GetActivation().Length + 1);
             string workingCity = city.Substring(0, 1).ToUpper() + city.Substring(1).ToLower();
-            Console.WriteLine(Get(workingCity));
-        }
-
-        public string Get(string city)
-        {
-            string uri = "http://api.openweathermap.org/data/2.5/weather?q=" + city + ",nl&APPID=" + this.APIKEY;
-
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
-            request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-            using (Stream stream = response.GetResponseStream())
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                return reader.ReadToEnd();
-            }
+            Console.WriteLine(APIHandler.Get("http://api.openweathermap.org/data/2.5/weather?q=" + city + ",nl&APPID=" + this.APIKEY));
         }
     }
 }

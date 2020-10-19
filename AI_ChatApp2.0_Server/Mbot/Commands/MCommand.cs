@@ -16,7 +16,7 @@ namespace AI_ChatApp2._0_Server.Mbot.Commands
 
         public virtual void DoCommand(Sentence sentence)
         {
-            // Handle your command
+            Console.WriteLine("No message implemented");
         }
 
         public string GetActivation()

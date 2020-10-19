@@ -27,7 +27,6 @@ namespace AI_ChatApp2._0_Server.Mbot
 
         private void HandleMessageAsync(Sentence sentence)
         {
-            Console.WriteLine("TEST");
             string message = sentence.getData();
 
             foreach (MCommand command in this.commands)
