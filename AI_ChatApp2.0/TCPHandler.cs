@@ -36,13 +36,19 @@ namespace AI_ChatApp2._0
 
         public void Connect(IAsyncResult ar)
         {
-            this.Client.EndConnect(ar);
+            try
+            {
+                this.Client.EndConnect(ar);
 
-            this.Stream = this.Client.GetStream();
+                this.Stream = this.Client.GetStream();
 
-            SendData(this.Name);
+                SendData(this.Name);
 
-            this.Stream.BeginRead(this.Buffer, 0, this.Buffer.Length, new AsyncCallback(OnIntRead), null);
+                this.Stream.BeginRead(this.Buffer, 0, this.Buffer.Length, new AsyncCallback(OnIntRead), null);
+            } catch (Exception)
+            {
+                Environment.Exit(1);
+            }
         }
         public void SendData(string message)
         {
