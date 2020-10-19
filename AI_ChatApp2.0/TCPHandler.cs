@@ -9,6 +9,7 @@ using System.Text;
 namespace AI_ChatApp2._0
 {
     public delegate void ChatCallback(string message);
+    public delegate void ClientListCallback(string clientList);
     class TCPHandler
     {
         string Name;
@@ -20,6 +21,7 @@ namespace AI_ChatApp2._0
         private byte[] Buffer = new byte[4];
 
         public event ChatCallback OnChatReceived;
+        public event ClientListCallback OnClientListReceived;
 
 
         public TCPHandler(string name, TcpClient client, string iPAddress, int port)
@@ -46,13 +48,13 @@ namespace AI_ChatApp2._0
         {
             Tuple<int, byte[]> tuple;
             //Converts message to Json
-            if (message.StartsWith("Hey Bot, ") && message.EndsWith("?"))
+            if (message.StartsWith("!"))
             {
-                tuple = EncryptData(this.Name, message, Sentence.Type.BOT_QUESTION);
+                tuple = EncryptData(this.Name, message, Sentence.Type.BOT1_REQUEST);
             }
-            else if (message.StartsWith("Hey Bot, "))
+            else if (message.StartsWith("="))
             {
-                tuple = EncryptData(this.Name, message, Sentence.Type.BOT_ANSWER);
+                tuple = EncryptData(this.Name, message, Sentence.Type.BOT2_REQUEST);
             }
             else if (message == "$DISCONNECT")
             {
@@ -145,11 +147,6 @@ namespace AI_ChatApp2._0
 
             switch (data.getMessageType())
             {
-                case Sentence.Type.BOT_REQUEST:
-                    {
-                        //TODO BOT_REQUEST RESPONSE
-                        break;
-                    }
                 case Sentence.Type.SERVER_MESSAGE:
                     {
                         OnChatReceived?.Invoke($"{data.getSender()}: {data.getData()}\r\n");
@@ -157,6 +154,7 @@ namespace AI_ChatApp2._0
                     }
                 case Sentence.Type.USERSMESSAGE:
                     {
+                        OnClientListReceived?.Invoke(data.Data);
                         Console.WriteLine("All clients: ");     //DEZE NAMEN OP HET TEXTBOX LATEN ZIEN (HET ZIJN ALLE ONLINE USERS)
                         Console.WriteLine(data.Data);
                         break;

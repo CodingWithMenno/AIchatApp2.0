@@ -47,6 +47,21 @@ namespace AI_ChatApp2._0
             //    Code for startup of program
             //}
             this.client.DataHandler.OnChatReceived += Client_OnChatReceived;
+            this.client.DataHandler.OnClientListReceived += DataHandler_OnClientListReceived;
+        }
+
+        private void DataHandler_OnClientListReceived(string clientList)
+        {
+            this.Invoke((Action)delegate
+            {
+                string[] clients = clientList.Split("\n");
+
+                textBoxUsersBox.Text = "";
+                foreach (string client in clients)
+                {
+                    textBoxUsersBox.Text += client + "\r\n";
+                }
+            });
         }
 
         private void Client_OnChatReceived(string message)
@@ -70,6 +85,8 @@ namespace AI_ChatApp2._0
         private void GUI_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.client.DataHandler.Disconnect();
+            this.client.DataHandler.OnChatReceived -= Client_OnChatReceived;
+            this.client.DataHandler.OnClientListReceived -= DataHandler_OnClientListReceived;
         }
     }
 }

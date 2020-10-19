@@ -12,9 +12,9 @@ namespace AI_ChatApp2._0_Server.Mbot
         private Server Server;
         private List<MCommand> commands;
 
-        public MBotHandler()
+        public MBotHandler(Server server)
         {
-            //this.Server = server;
+            this.Server = server;
             setCommands();
         }
 
@@ -22,20 +22,23 @@ namespace AI_ChatApp2._0_Server.Mbot
         {
             this.commands = new List<MCommand>();
 
-            this.commands.Add(new WeatherCommand("weather"));
+            this.commands.Add(new WeatherCommand(this.Server,"weather"));
+            this.commands.Add(new HelpCommand(this.Server,"help"));
         }
 
         private void HandleMessageAsync(Sentence sentence)
         {
-            string message = sentence.getData();
-
+            string message = sentence.getData().Substring(1);
             foreach (MCommand command in this.commands)
             {
                 if (message.StartsWith(command.GetActivation()))
                 {
                     command.DoCommand(sentence);
+                    return;
                 }
             }
+
+            this.Server.sendServerMessage($"The command \"{sentence.getData()}\" is not valid, type !help for a list of all my commands.");
         }
 
         public void HandleMessage(Sentence sentence)

@@ -7,10 +7,13 @@ namespace AI_ChatApp2._0_Server.Mbot.Commands
 {
     class MCommand
     {
-        private string ActivationCommand;
 
-        public MCommand(string ActivationString)
+        protected Server Server;
+        protected string ActivationCommand;
+
+        public MCommand(Server server, string ActivationString)
         {
+            this.Server = server;
             this.ActivationCommand = ActivationString;
         }
 

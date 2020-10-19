@@ -13,12 +13,11 @@ namespace SharedClass
         public enum Type
         {
             CHAT_MESSAGE,
-            BOT_QUESTION,
-            BOT_ANSWER,
             SERVER_MESSAGE,
-            BOT_REQUEST,
             DISCONNECT,
-            USERSMESSAGE
+            USERSMESSAGE,
+            BOT1_REQUEST,
+            BOT2_REQUEST
         }
 
         //public Sentence(string sender, string sentence, Type messageType)

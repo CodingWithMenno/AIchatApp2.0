@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Threading;
 
 namespace AI_ChatApp2._0_Server
@@ -11,22 +12,13 @@ namespace AI_ChatApp2._0_Server
     class Server
     {
         private TcpListener Listener;
-
+        public MBotHandler BotHandler;
         private List<ServerClient> Clients;
 
 
         static void Main(string[] args)
         {
-            //Server server = new Server();
-
-            MBotHandler m = new MBotHandler();
-            m.HandleMessage(new Sentence()
-            {
-                Sender = "Server",
-                Data = "weather dordrecht",
-                MessageType = Sentence.Type.USERSMESSAGE
-            }); ;
-
+            Server server = new Server();
             Console.ReadLine();
         }
 
@@ -34,7 +26,6 @@ namespace AI_ChatApp2._0_Server
         {
             StartupServer();
             Console.WriteLine("Server init done");
-            Console.ReadLine();
         }
 
         private void StartupServer()
@@ -50,6 +41,8 @@ namespace AI_ChatApp2._0_Server
                 this.Listener.Start();
 
                 this.Listener.BeginAcceptTcpClient(new AsyncCallback(onClientAccepted), null);
+
+                this.BotHandler = new MBotHandler(this);
             }
             catch (Exception e)
             {
@@ -67,21 +60,6 @@ namespace AI_ChatApp2._0_Server
 
             this.Listener.BeginAcceptTcpClient(new AsyncCallback(onClientAccepted), null);
             this.Clients.Add(new ServerClient(this, client));
-
-            Thread.Sleep(200); //Wachten totdat de server de naam heeft ontvangen van de client
-
-            string usersString = "";
-            this.Clients.ForEach(e => usersString += e.Name + "\n");
-
-            foreach (var Client in this.Clients)
-            {
-                Client.SendMessage(new Sentence()
-                {
-                    Sender = "Server",
-                    Data = usersString,
-                    MessageType = Sentence.Type.USERSMESSAGE
-                }); ;
-            }
         }
 
         public void Broadcast(Sentence message, Sentence.Type type)
@@ -93,6 +71,22 @@ namespace AI_ChatApp2._0_Server
                     Sender = message.Sender,
                     Data = message.Data,
                     MessageType = type
+                }); ;
+            }
+        }
+
+        public void SendClientList()
+        {
+            string usersString = "";
+            this.Clients.ForEach(e => usersString += e.Name + "\n");
+
+            foreach (var Client in this.Clients)
+            {
+                Client.SendMessage(new Sentence()
+                {
+                    Sender = "Server",
+                    Data = usersString,
+                    MessageType = Sentence.Type.USERSMESSAGE
                 }); ;
             }
         }
@@ -114,13 +108,9 @@ namespace AI_ChatApp2._0_Server
         {
             //TODO verbeteren
             this.Clients.Remove(client);
+            SendClientList();
             sendServerMessage("A client disconnected");
             Console.WriteLine("A client disconnected from the server");
-        }
-
-        public void MessageToAI(Sentence message)
-        {
-            //Start a new thread to handle all the things of the AI
         }
     }
 }
