@@ -24,6 +24,7 @@ namespace AI_ChatApp2._0_Server.Mbot
 
             this.commands.Add(new WeatherCommand(this.Server,"weather"));
             this.commands.Add(new HelpCommand(this.Server,"help"));
+            this.commands.Add(new ModCommand(this.Server, "mod"));
         }
 
         private void HandleMessageAsync(Sentence sentence)
@@ -38,7 +39,7 @@ namespace AI_ChatApp2._0_Server.Mbot
                 }
             }
 
-            this.Server.sendServerMessage($"The command \"{sentence.getData()}\" is not valid, type !help for a list of all my commands.");
+            this.Server.SendToUser(sentence.Sender, $"The command \"{sentence.getData()}\" is not valid, type !help for a list of all my commands.");
         }
 
         public void HandleMessage(Sentence sentence)

@@ -31,7 +31,7 @@ namespace AI_ChatApp2._0
 
         private void SendChat()
         {
-            if (textBoxSendChat.Text != "" && textBoxSendChat.Text != "$DISCONNECT")
+            if (textBoxSendChat.Text != "" && textBoxSendChat.Text != "$DISCONNECT" && textBoxUsersBox.Text != "")
             {
                 this.client.SendData(textBoxSendChat.Text);
                 textBoxSendChat.Text = "";

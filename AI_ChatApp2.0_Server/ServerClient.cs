@@ -103,13 +103,8 @@ namespace AI_ChatApp2._0_Server
             {
                 case Sentence.Type.BOT1_REQUEST:
                     {
-                        this.Server.Broadcast(data, Sentence.Type.SERVER_MESSAGE);
+                        this.Server.SendToUser(data.Sender, data.getData());
                         this.Server.BotHandler.HandleMessage(data);
-                        break;
-                    }
-                case Sentence.Type.BOT2_REQUEST:
-                    {
-                        //    this.Server.BotHandler.HandleMessage(data);
                         break;
                     }
                 case Sentence.Type.CHAT_MESSAGE:
@@ -127,6 +122,7 @@ namespace AI_ChatApp2._0_Server
                     {
                         this.Name = data.getData();
                         this.Server.SendClientList();
+                        this.Server.SendServerMessage($"<{data.getData()}> connected to the server.");
                         break;
                     }
                 default:

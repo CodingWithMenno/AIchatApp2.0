@@ -52,10 +52,6 @@ namespace AI_ChatApp2._0
             {
                 tuple = EncryptData(this.Name, message, Sentence.Type.BOT1_REQUEST);
             }
-            else if (message.StartsWith("="))
-            {
-                tuple = EncryptData(this.Name, message, Sentence.Type.BOT2_REQUEST);
-            }
             else if (message == "$DISCONNECT")
             {
                 tuple = EncryptData(this.Name, message, Sentence.Type.DISCONNECT);
@@ -157,6 +153,11 @@ namespace AI_ChatApp2._0
                         OnClientListReceived?.Invoke(data.Data);
                         Console.WriteLine("All clients: ");     //DEZE NAMEN OP HET TEXTBOX LATEN ZIEN (HET ZIJN ALLE ONLINE USERS)
                         Console.WriteLine(data.Data);
+                        break;
+                    }
+                case Sentence.Type.DISCONNECT_REQUEST:
+                    {
+                        SendData("$DISCONNECT");
                         break;
                     }
                 default:

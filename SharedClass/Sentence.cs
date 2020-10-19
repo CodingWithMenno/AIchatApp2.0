@@ -17,7 +17,7 @@ namespace SharedClass
             DISCONNECT,
             USERSMESSAGE,
             BOT1_REQUEST,
-            BOT2_REQUEST
+            DISCONNECT_REQUEST
         }
 
         //public Sentence(string sender, string sentence, Type messageType)

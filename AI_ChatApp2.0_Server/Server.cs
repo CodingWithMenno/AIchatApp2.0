@@ -2,6 +2,7 @@
 using SharedClass;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
@@ -56,8 +57,6 @@ namespace AI_ChatApp2._0_Server
             TcpClient client = this.Listener.EndAcceptTcpClient(ar);
             Console.WriteLine($"A new client connected to the server: {client.Client.RemoteEndPoint}");
 
-            sendServerMessage("A client connected");
-
             this.Listener.BeginAcceptTcpClient(new AsyncCallback(onClientAccepted), null);
             this.Clients.Add(new ServerClient(this, client));
         }
@@ -72,6 +71,19 @@ namespace AI_ChatApp2._0_Server
                     Data = message.Data,
                     MessageType = type
                 }); ;
+            }
+        }
+
+        public void SendToUser(string sender, string message)
+        {
+            foreach (var client in this.Clients.Where(c => sender == c.Name))
+            {
+                client.SendMessage(new Sentence()
+                {
+                    Sender = "Server",
+                    Data = message,
+                    MessageType = Sentence.Type.SERVER_MESSAGE
+                });
             }
         }
 
@@ -91,7 +103,7 @@ namespace AI_ChatApp2._0_Server
             }
         }
 
-        public void sendServerMessage(string message)
+        public void SendServerMessage(string message)
         {
             foreach (var Client in this.Clients)
             {
@@ -104,12 +116,27 @@ namespace AI_ChatApp2._0_Server
             }
         }
 
+        public bool SendDisconnectRequest(string receiver, string message)
+        {
+            foreach (var client in this.Clients.Where(c => receiver == c.Name))
+            {
+                client.SendMessage(new Sentence()
+                {
+                    Sender = "Server",
+                    Data = message,
+                    MessageType = Sentence.Type.DISCONNECT_REQUEST
+                });
+                return true;
+            }
+            return false;
+        }
+
         public void Disconnect(ServerClient client)
         {
             //TODO verbeteren
             this.Clients.Remove(client);
             SendClientList();
-            sendServerMessage("A client disconnected");
+            SendServerMessage($"<{client.Name}> disconnected from the server.");
             Console.WriteLine("A client disconnected from the server");
         }
     }
