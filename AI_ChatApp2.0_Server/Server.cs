@@ -36,7 +36,7 @@ namespace AI_ChatApp2._0_Server
                 this.Clients = new List<ServerClient>();
 
                 int Port = 42069;
-                //IPAddress IPAdress = IPAddress.Parse("localhost");
+                IPAddress IPAdress = IPAddress.Parse("192.168.112.4");
 
                 this.Listener = new TcpListener(IPAddress.Any, Port);
                 this.Listener.Start();
