@@ -103,7 +103,13 @@ namespace AI_ChatApp2._0_Server
             {
                 case Sentence.Type.BOT1_REQUEST:
                     {
-                        this.Server.SendToUser(data.Sender, data.getData());
+                        this.Server.SendToUser(new Sentence()
+                        {
+                            Sender = data.getSender(),
+                            Data = data.getData(),
+                            MessageType = Sentence.Type.SERVER_MESSAGE
+                            
+                        });
                         this.Server.BotHandler.HandleMessage(data);
                         break;
                     }

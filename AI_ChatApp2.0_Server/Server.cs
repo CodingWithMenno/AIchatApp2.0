@@ -87,6 +87,14 @@ namespace AI_ChatApp2._0_Server
             }
         }
 
+        public void SendToUser(Sentence sentence)
+        {
+            foreach (var client in this.Clients.Where(c => sentence.Sender == c.Name))
+            {
+                client.SendMessage(sentence);
+            }
+        }
+
         public void SendClientList()
         {
             string usersString = "";
