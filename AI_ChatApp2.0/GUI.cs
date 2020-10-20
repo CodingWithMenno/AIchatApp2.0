@@ -44,6 +44,7 @@ namespace AI_ChatApp2._0
             client.Connect();
             this.client.DataHandler.OnChatReceived += Client_OnChatReceived;
             this.client.DataHandler.OnClientListReceived += DataHandler_OnClientListReceived;
+            this.client.DataHandler.OnMessageBoxShow += OnMessageBox_Show;
         }
 
         private void DataHandler_OnClientListReceived(string clientList)
@@ -78,11 +79,21 @@ namespace AI_ChatApp2._0
             }
         }
 
+        public void OnMessageBox_Show(string message, MessageBoxButtons buttons)
+        {
+            DialogResult res = MessageBox.Show(message, "Confirmation", buttons, MessageBoxIcon.Information);
+            if (res == DialogResult.OK)
+            {
+                Environment.Exit(0);
+            }
+        }
+
         private void GUI_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.client.DataHandler.Disconnect();
             this.client.DataHandler.OnChatReceived -= Client_OnChatReceived;
             this.client.DataHandler.OnClientListReceived -= DataHandler_OnClientListReceived;
+            this.client.DataHandler.OnMessageBoxShow -= OnMessageBox_Show;
         }
     }
 }

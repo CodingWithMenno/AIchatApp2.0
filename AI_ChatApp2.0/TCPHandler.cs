@@ -5,11 +5,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
 using System.Text;
+using System.Windows.Forms;
 
 namespace AI_ChatApp2._0
 {
     public delegate void ChatCallback(string message);
     public delegate void ClientListCallback(string clientList);
+    public delegate void MessageBoxCallback(string message, MessageBoxButtons buttons);
     class TCPHandler
     {
         string Name;
@@ -22,7 +24,7 @@ namespace AI_ChatApp2._0
 
         public event ChatCallback OnChatReceived;
         public event ClientListCallback OnClientListReceived;
-
+        public event MessageBoxCallback OnMessageBoxShow;
 
         public TCPHandler(string name, TcpClient client, string iPAddress, int port)
         {
@@ -47,7 +49,7 @@ namespace AI_ChatApp2._0
                 this.Stream.BeginRead(this.Buffer, 0, this.Buffer.Length, new AsyncCallback(OnIntRead), null);
             } catch (Exception)
             {
-                Environment.Exit(1);
+                OnMessageBoxShow?.Invoke("The server is not online, press \"OK\" to close the window.", MessageBoxButtons.OK);
             }
         }
         public void SendData(string message)
@@ -164,7 +166,7 @@ namespace AI_ChatApp2._0
                     case Sentence.Type.DISCONNECT_REQUEST:
                         {
                             SendData("$DISCONNECT");
-                            Environment.Exit(0);
+                            OnMessageBoxShow?.Invoke($"You got kicked!\nReason: {data.getData()}", MessageBoxButtons.OK);
                             break;
                         }
                     default:

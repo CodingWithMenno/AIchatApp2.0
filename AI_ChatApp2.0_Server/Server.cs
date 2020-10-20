@@ -48,7 +48,7 @@ namespace AI_ChatApp2._0_Server
             catch (Exception e)
             {
                 Console.WriteLine($"Something went wrong while setting up the server: {e.Message} ");
-                System.Environment.Exit(0);
+                Environment.Exit(0);
             }
         }
 
