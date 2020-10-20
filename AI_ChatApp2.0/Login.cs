@@ -29,6 +29,7 @@ namespace AI_ChatApp2._0
                 GUI gui = new GUI(textBoxUserName.Text);
                 gui.Show();
                 this.Hide();
+                Form.ActiveForm.Text = $"{textBoxUserName.Text}'s Client";
             }
         }
 

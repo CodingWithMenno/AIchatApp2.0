@@ -125,6 +125,7 @@ namespace AI_ChatApp2._0
         public void Disconnect()
         {
             SendData("$DISCONNECT");
+            this.Client.Close();
         }
 
         private Tuple<int, byte[]> EncryptData(string sender_, string message_, Sentence.Type type_)

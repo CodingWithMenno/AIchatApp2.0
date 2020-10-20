@@ -61,7 +61,7 @@
             this.Controls.Add(this.buttonToGUI);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Login";
-            this.Text = "Form1";
+            this.Text = "Login Client";
             this.ResumeLayout(false);
             this.PerformLayout();
 

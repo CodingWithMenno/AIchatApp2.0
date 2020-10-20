@@ -19,8 +19,6 @@ namespace AI_ChatApp2._0
             InitClient(UserName);
 
             //TODO ASk for username
-
-            Form.ActiveForm.Text = $"{UserName}'s Client";
         }
 
         private void buttonSend_Click(object sender, EventArgs e)
