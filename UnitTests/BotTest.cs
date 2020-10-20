@@ -20,9 +20,11 @@ namespace UnitTests
         {
             string result = APIHandler.Get("http://api.openweathermap.org/data/2.5/weather?q=" + "Dordrecht" + ",nl&APPID=" + this.APIKEY);
             dynamic data_ = JsonConvert.DeserializeObject(result);
-            double actualTemp = Math.Round((double)(data_.main.temp - 273.15), 0);
+            string city = data_.name;
+            int timezone = data_.timezone;
 
-            Assert.AreEqual(13, actualTemp);
+            Assert.AreEqual("Dordrecht", city);
+            Assert.AreEqual(7200,timezone);
         }
 
         [TestMethod]
