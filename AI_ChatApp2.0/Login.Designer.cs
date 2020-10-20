@@ -37,9 +37,9 @@
             // 
             // buttonToGUI
             // 
-            this.buttonToGUI.Location = new System.Drawing.Point(282, 266);
+            this.buttonToGUI.Location = new System.Drawing.Point(280, 265);
             this.buttonToGUI.Name = "buttonToGUI";
-            this.buttonToGUI.Size = new System.Drawing.Size(216, 27);
+            this.buttonToGUI.Size = new System.Drawing.Size(216, 35);
             this.buttonToGUI.TabIndex = 0;
             this.buttonToGUI.Text = "Login";
             this.buttonToGUI.UseVisualStyleBackColor = true;
@@ -47,7 +47,7 @@
             // 
             // textBoxUserName
             // 
-            this.textBoxUserName.Location = new System.Drawing.Point(297, 138);
+            this.textBoxUserName.Location = new System.Drawing.Point(297, 160);
             this.textBoxUserName.Name = "textBoxUserName";
             this.textBoxUserName.Size = new System.Drawing.Size(181, 27);
             this.textBoxUserName.TabIndex = 1;
@@ -59,11 +59,12 @@
             this.textBoxIPAddress.Name = "textBoxIPAddress";
             this.textBoxIPAddress.Size = new System.Drawing.Size(181, 27);
             this.textBoxIPAddress.TabIndex = 2;
+            this.textBoxIPAddress.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxIPAddress_KeyDown);
             // 
             // labelUserName
             // 
             this.labelUserName.AutoSize = true;
-            this.labelUserName.Location = new System.Drawing.Point(350, 115);
+            this.labelUserName.Location = new System.Drawing.Point(350, 137);
             this.labelUserName.Name = "labelUserName";
             this.labelUserName.Size = new System.Drawing.Size(78, 20);
             this.labelUserName.TabIndex = 3;

@@ -72,5 +72,13 @@ namespace AI_ChatApp2._0
                 LoginToGUI();
             }
         }
+
+        private void textBoxIPAddress_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                LoginToGUI();
+            }
+        }
     }
 }
