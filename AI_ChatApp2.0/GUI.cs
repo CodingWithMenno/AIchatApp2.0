@@ -20,7 +20,7 @@ namespace AI_ChatApp2._0
 
             //TODO ASk for username
 
-
+            Form.ActiveForm.Text = $"{UserName}'s Client";
         }
 
         private void buttonSend_Click(object sender, EventArgs e)
@@ -81,7 +81,7 @@ namespace AI_ChatApp2._0
 
         public void OnMessageBox_Show(string message, MessageBoxButtons buttons)
         {
-            DialogResult res = MessageBox.Show(message, "Confirmation", buttons, MessageBoxIcon.Information);
+            DialogResult res = MessageBox.Show(message, "EXIT", buttons, MessageBoxIcon.Information);
             if (res == DialogResult.OK)
             {
                 Environment.Exit(0);
