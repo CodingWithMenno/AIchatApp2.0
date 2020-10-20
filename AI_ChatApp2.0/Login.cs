@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -26,10 +27,24 @@ namespace AI_ChatApp2._0
         {
             if (textBoxUserName.Text != "")
             {
-                GUI gui = new GUI(textBoxUserName.Text);
-                gui.Show();
-                this.Hide();
-                Form.ActiveForm.Text = $"{textBoxUserName.Text}'s Client";
+                IPAddress ip;
+                bool ValidateIP = IPAddress.TryParse(textBoxIPAddress.Text, out ip);
+                if (ValidateIP)
+                {
+                    GUI gui = new GUI(textBoxUserName.Text, textBoxIPAddress.Text);
+                    gui.Show();
+                    this.Hide();
+                    Form.ActiveForm.Text = $"{textBoxUserName.Text}'s Client";
+                }
+                else
+                {
+                    DialogResult res = MessageBox.Show("The given IPAddress was not a valid IPAddress! ", "Invalid IPAddress", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (res == DialogResult.OK)
+                    {
+                        textBoxIPAddress.Text = "";
+                    }
+                }
+
             }
         }
 

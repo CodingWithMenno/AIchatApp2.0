@@ -13,10 +13,10 @@ namespace AI_ChatApp2._0
 
         private Client client;
 
-        public GUI(string UserName)
+        public GUI(string UserName, string IPAddress)
         {
             InitializeComponent();
-            InitClient(UserName);
+            InitClient(UserName, IPAddress);
 
             //TODO ASk for username
         }
@@ -36,9 +36,9 @@ namespace AI_ChatApp2._0
             }
         }
 
-        private void InitClient(string UserName)
+        private void InitClient(string UserName, string IPAddress)
         {
-            this.client = new Client(UserName, "localhost");
+            this.client = new Client(UserName, IPAddress);
             client.Connect();
             this.client.DataHandler.OnChatReceived += Client_OnChatReceived;
             this.client.DataHandler.OnClientListReceived += DataHandler_OnClientListReceived;

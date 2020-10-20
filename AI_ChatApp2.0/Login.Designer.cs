@@ -30,14 +30,16 @@
         {
             this.buttonToGUI = new System.Windows.Forms.Button();
             this.textBoxUserName = new System.Windows.Forms.TextBox();
+            this.textBoxIPAddress = new System.Windows.Forms.TextBox();
+            this.labelUserName = new System.Windows.Forms.Label();
+            this.labelIPAddress = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonToGUI
             // 
-            this.buttonToGUI.Location = new System.Drawing.Point(370, 146);
-            this.buttonToGUI.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonToGUI.Location = new System.Drawing.Point(282, 266);
             this.buttonToGUI.Name = "buttonToGUI";
-            this.buttonToGUI.Size = new System.Drawing.Size(73, 24);
+            this.buttonToGUI.Size = new System.Drawing.Size(216, 27);
             this.buttonToGUI.TabIndex = 0;
             this.buttonToGUI.Text = "Login";
             this.buttonToGUI.UseVisualStyleBackColor = true;
@@ -45,21 +47,47 @@
             // 
             // textBoxUserName
             // 
-            this.textBoxUserName.Location = new System.Drawing.Point(244, 148);
-            this.textBoxUserName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxUserName.Location = new System.Drawing.Point(297, 138);
             this.textBoxUserName.Name = "textBoxUserName";
-            this.textBoxUserName.Size = new System.Drawing.Size(110, 23);
+            this.textBoxUserName.Size = new System.Drawing.Size(181, 27);
             this.textBoxUserName.TabIndex = 1;
             this.textBoxUserName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxUserName_KeyDown);
             // 
+            // textBoxIPAddress
+            // 
+            this.textBoxIPAddress.Location = new System.Drawing.Point(297, 213);
+            this.textBoxIPAddress.Name = "textBoxIPAddress";
+            this.textBoxIPAddress.Size = new System.Drawing.Size(181, 27);
+            this.textBoxIPAddress.TabIndex = 2;
+            // 
+            // labelUserName
+            // 
+            this.labelUserName.AutoSize = true;
+            this.labelUserName.Location = new System.Drawing.Point(350, 115);
+            this.labelUserName.Name = "labelUserName";
+            this.labelUserName.Size = new System.Drawing.Size(78, 20);
+            this.labelUserName.TabIndex = 3;
+            this.labelUserName.Text = "UserName";
+            // 
+            // labelIPAddress
+            // 
+            this.labelIPAddress.AutoSize = true;
+            this.labelIPAddress.Location = new System.Drawing.Point(350, 190);
+            this.labelIPAddress.Name = "labelIPAddress";
+            this.labelIPAddress.Size = new System.Drawing.Size(73, 20);
+            this.labelIPAddress.TabIndex = 4;
+            this.labelIPAddress.Text = "IPAddress";
+            // 
             // Login
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(700, 338);
+            this.ClientSize = new System.Drawing.Size(800, 451);
+            this.Controls.Add(this.labelIPAddress);
+            this.Controls.Add(this.labelUserName);
+            this.Controls.Add(this.textBoxIPAddress);
             this.Controls.Add(this.textBoxUserName);
             this.Controls.Add(this.buttonToGUI);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Login";
             this.Text = "Login Client";
             this.ResumeLayout(false);
@@ -71,6 +99,9 @@
 
         private System.Windows.Forms.Button buttonToGUI;
         private System.Windows.Forms.TextBox textBoxUserName;
+        private System.Windows.Forms.TextBox textBoxIPAddress;
+        private System.Windows.Forms.Label labelUserName;
+        private System.Windows.Forms.Label labelIPAddress;
     }
 }
 
