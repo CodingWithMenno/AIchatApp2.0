@@ -16,25 +16,13 @@ namespace SharedClass
             SERVER_MESSAGE,
             DISCONNECT,
             USERSMESSAGE,
-            BOT1_REQUEST,
+            BOT_REQUEST,
             DISCONNECT_REQUEST
         }
-
-        //public Sentence(string sender, string sentence, Type messageType)
-        //{
-        //    this.Sender = sender;
-        //    this.Data = sentence;
-        //    this.MessageType = messageType;
-        //}
 
         public string toString()
         {
             return $"Sentence: SENDER: {this.Sender}, TYPE: {this.MessageType}, DATA: {this.Data}";
-        }
-
-        public string[] toWordArray()
-        {
-            return this.Data.Split(" ");
         }
 
         public Type getMessageType()

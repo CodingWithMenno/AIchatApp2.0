@@ -9,7 +9,6 @@
     <Import_RootNamespace>SharedClass</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)DAbstract.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Sentence.cs" />
   </ItemGroup>
 </Project>

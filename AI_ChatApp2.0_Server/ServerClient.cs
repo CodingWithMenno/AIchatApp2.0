@@ -101,7 +101,7 @@ namespace AI_ChatApp2._0_Server
 
             switch (data.getMessageType())
             {
-                case Sentence.Type.BOT1_REQUEST:
+                case Sentence.Type.BOT_REQUEST:
                     {
                         this.Server.SendToUser(new Sentence()
                         {

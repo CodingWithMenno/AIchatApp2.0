@@ -14,7 +14,7 @@ namespace AI_ChatApp2._0
     public delegate void MessageBoxCallback(string message, MessageBoxButtons buttons);
     class TCPHandler
     {
-        string Name;
+        public string Name;
         private TcpClient Client;
         private NetworkStream Stream;
         private string IPAddress;
@@ -52,13 +52,14 @@ namespace AI_ChatApp2._0
                 OnMessageBoxShow?.Invoke("The server is not online, press \"OK\" to close the window.", MessageBoxButtons.OK);
             }
         }
+
         public void SendData(string message)
         {
             Tuple<int, byte[]> tuple;
             //Converts message to Json
             if (message.StartsWith("!"))
             {
-                tuple = EncryptData(this.Name, message, Sentence.Type.BOT1_REQUEST);
+                tuple = EncryptData(this.Name, message, Sentence.Type.BOT_REQUEST);
             }
             else if (message == "$DISCONNECT")
             {

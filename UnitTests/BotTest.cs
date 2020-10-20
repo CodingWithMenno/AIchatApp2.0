@@ -37,7 +37,7 @@ namespace UnitTests
             {
                 Sender = "TEST",
                 Data = "testen",
-                MessageType = SharedClass.Sentence.Type.BOT1_REQUEST
+                MessageType = SharedClass.Sentence.Type.BOT_REQUEST
             });
 
             Assert.IsFalse(result);
@@ -90,7 +90,7 @@ namespace UnitTests
             {
                 Sender = "TEST",
                 Data = "!mod removeBW test",
-                MessageType = SharedClass.Sentence.Type.BOT1_REQUEST
+                MessageType = SharedClass.Sentence.Type.BOT_REQUEST
             });
 
             Thread.Sleep(2000);
@@ -102,7 +102,7 @@ namespace UnitTests
             {
                 Sender = "TEST",
                 Data = "!mod addBW testWord",
-                MessageType = SharedClass.Sentence.Type.BOT1_REQUEST
+                MessageType = SharedClass.Sentence.Type.BOT_REQUEST
             });
 
             Thread.Sleep(2000);
