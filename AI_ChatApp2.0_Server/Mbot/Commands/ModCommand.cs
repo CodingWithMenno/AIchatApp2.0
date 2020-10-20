@@ -10,6 +10,8 @@ namespace AI_ChatApp2._0_Server.Mbot.Commands
 {
     class ModCommand : MCommand
     {
+        private string path = Path.Combine(Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName, "BlackList.txt");
+
         public ModCommand(Server server, string ActivationString) : base(server, ActivationString)
         {
         }
@@ -51,12 +53,13 @@ namespace AI_ChatApp2._0_Server.Mbot.Commands
                             {
                                 throw new Exception();
                             }
-                            if (!File.ReadAllText("BlackList.txt").Contains(words[2].ToLower()))
+                            if (!File.ReadAllText(path).Contains(words[2].ToLower()))
                             {
-                                File.AppendAllText("BlackList.txt", words[2].ToLower() + ", ");
+                                File.AppendAllText(path, words[2].ToLower() + ", ");
                                 this.Server.BotHandler.blackList.Add(words[2].ToLower());
 
                                 this.Server.SendToUser(sentence.Sender, $"{words[2]} has been added to the blacklist.");
+                                Console.WriteLine("Word added");
                             }
                             else
                             {
@@ -73,16 +76,17 @@ namespace AI_ChatApp2._0_Server.Mbot.Commands
                             }
                             try
                             {
-                                this.Server.BotHandler.blackList = new List<string>(File.ReadAllText("BlackList.txt").Split(", "));
+                                this.Server.BotHandler.blackList = new List<string>(File.ReadAllText(path).Split(", "));
 
                                 if (this.Server.BotHandler.blackList.Contains(words[2].ToLower()))
                                 {
                                     this.Server.BotHandler.blackList.Remove(words[2].ToLower());
 
                                     string allWords = String.Join(", ", this.Server.BotHandler.blackList.ToArray());
-                                    File.WriteAllText("BlackList.txt", allWords);
+                                    File.WriteAllText(path, allWords);
 
                                     this.Server.SendToUser(sentence.Sender, $"{words[2]} has been removed from the blacklist.");
+                                    Console.WriteLine("Word deleted");
                                 }
                                 else
                                 {
@@ -103,7 +107,7 @@ namespace AI_ChatApp2._0_Server.Mbot.Commands
                             }
                             try
                             {
-                                string blacklistedWords = File.ReadAllText("BlackList.txt");
+                                string blacklistedWords = File.ReadAllText(path);
                                 blacklistedWords = blacklistedWords.Substring(0, blacklistedWords.Length - 2);
 
                                 this.Server.SendToUser(sentence.Sender, $"BlackList: {blacklistedWords}\n");

@@ -10,7 +10,7 @@ using System.Threading;
 
 namespace AI_ChatApp2._0_Server
 {
-    class Server
+    public class Server
     {
         private TcpListener Listener;
         public MBotHandler BotHandler;

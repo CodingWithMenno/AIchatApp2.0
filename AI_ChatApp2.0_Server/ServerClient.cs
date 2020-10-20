@@ -8,7 +8,7 @@ using System.Text;
 
 namespace AI_ChatApp2._0_Server
 {
-    class ServerClient
+    public class ServerClient
     {
         private Server Server;
         private TcpClient TCPClient;

@@ -9,8 +9,9 @@ using System.Threading;
 
 namespace AI_ChatApp2._0_Server.Mbot
 {
-    class MBotHandler
+    public class MBotHandler
     {
+        private string path = Path.Combine(Directory.GetParent(System.IO.Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName, "BlackList.txt");
         private Server Server;
         private List<MCommand> commands;
         public List<string> blackList;
@@ -18,7 +19,7 @@ namespace AI_ChatApp2._0_Server.Mbot
         public MBotHandler(Server server)
         {
             this.Server = server;
-            this.blackList = new List<string>(File.ReadAllText("BlackList.txt").Split(", "));
+            this.blackList = new List<string>(File.ReadAllText(path).Split(", "));
 
             setCommands();
         }

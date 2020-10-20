@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>AI_ChatApp2._0_Test</RootNamespace>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -15,10 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AI_ChatApp2.0\AI_ChatApp2.0_Client.csproj" />
     <ProjectReference Include="..\AI_ChatApp2.0_Server\AI_ChatApp2.0_Server.csproj" />
   </ItemGroup>
-
-  <Import Project="..\SharedClass\SharedClass.projitems" Label="Shared" />
 
 </Project>

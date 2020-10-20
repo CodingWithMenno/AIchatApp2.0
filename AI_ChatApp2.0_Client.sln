@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AI_ChatApp2.0_Server", "AI_
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SharedClass", "SharedClass\SharedClass.shproj", "{D315CA20-A550-44B6-8D42-78094E01323B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI_ChatApp2.0_Test", "AI_ChatApp2.0_Test\AI_ChatApp2.0_Test.csproj", "{0C5C098B-7CFD-46B6-AE8B-578C30FE7F79}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{42D19BDD-C115-4143-82E7-AA58CB40A798}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -30,10 +30,10 @@ Global
 		{97D34FC8-950F-4B64-86E6-21FD9288A2D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97D34FC8-950F-4B64-86E6-21FD9288A2D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97D34FC8-950F-4B64-86E6-21FD9288A2D3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0C5C098B-7CFD-46B6-AE8B-578C30FE7F79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0C5C098B-7CFD-46B6-AE8B-578C30FE7F79}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0C5C098B-7CFD-46B6-AE8B-578C30FE7F79}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0C5C098B-7CFD-46B6-AE8B-578C30FE7F79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42D19BDD-C115-4143-82E7-AA58CB40A798}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42D19BDD-C115-4143-82E7-AA58CB40A798}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42D19BDD-C115-4143-82E7-AA58CB40A798}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42D19BDD-C115-4143-82E7-AA58CB40A798}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

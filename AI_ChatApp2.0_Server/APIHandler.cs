@@ -6,7 +6,7 @@ using System.Text;
 
 namespace AI_ChatApp2._0_Server
 {
-    static class APIHandler
+    public static class APIHandler
     {
         public static string Get(string uri)
         {
