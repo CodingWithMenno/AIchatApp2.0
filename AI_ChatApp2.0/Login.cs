@@ -27,24 +27,41 @@ namespace AI_ChatApp2._0
         {
             if (textBoxUserName.Text != "")
             {
-                IPAddress ip;
-                bool ValidateIP = IPAddress.TryParse(textBoxIPAddress.Text, out ip);
-                if (ValidateIP)
+                if (textBoxIPAddress.Text != "")
                 {
-                    GUI gui = new GUI(textBoxUserName.Text, textBoxIPAddress.Text);
-                    gui.Show();
-                    this.Hide();
-                    Form.ActiveForm.Text = $"{textBoxUserName.Text}'s Client";
+                    IPAddress ip;
+                    bool ValidateIP = IPAddress.TryParse(textBoxIPAddress.Text, out ip);
+                    if (ValidateIP)
+                    {
+                        GUI gui = new GUI(textBoxUserName.Text, textBoxIPAddress.Text);
+                        gui.Show();
+                        this.Hide();
+                        Form.ActiveForm.Text = $"{textBoxUserName.Text}'s Client";
+                    }
+                    else
+                    {
+                        DialogResult res = MessageBox.Show("The given IPAddress was not a valid IPAddress! ", "Invalid IPAddress", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (res == DialogResult.OK)
+                        {
+                            textBoxIPAddress.Text = "";
+                        }
+                    }
                 }
                 else
                 {
-                    DialogResult res = MessageBox.Show("The given IPAddress was not a valid IPAddress! ", "Invalid IPAddress", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    DialogResult res = MessageBox.Show("You forget to put an username and/or IPAddress!", "Empty textBoxes", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     if (res == DialogResult.OK)
                     {
-                        textBoxIPAddress.Text = "";
                     }
                 }
 
+            }
+            else
+            {
+                DialogResult res = MessageBox.Show("You forget to put an username and/or IPAddress!", "Empty textBoxes", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (res == DialogResult.OK)
+                {
+                }
             }
         }
 
