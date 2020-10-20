@@ -61,10 +61,5 @@ namespace AI_ChatApp2._0
             if (this.IsConnected)
                 this.DataHandler.SendData(message);
         }
-
-        public void Disconnect()
-        {
-            
-        }
     }
 }
